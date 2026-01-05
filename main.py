@@ -3,7 +3,7 @@ from pyscript import document, display
 subjects = ["Science", "Math", "English", "Filipino", "ICT", "PE"]
 units = (5, 5, 5, 3, 2, 1)
 
-def calculate_gwa(e):
+def calculate_gwa(event):
     first_name = document.getElementById("firstName").value
     last_name = document.getElementById("lastName").value
 
@@ -20,6 +20,11 @@ def calculate_gwa(e):
     weighted_sum = sum(grades[i] * units[i] for i in range(len(subjects)))
     gwa = weighted_sum / total_units
 
+    if gwa > 74:
+        status = "PASSED"
+    else:
+        status = "FAILED"
+
     summary = f"""
     <h4>Name: {first_name} {last_name}</h4>
     <br>
@@ -29,8 +34,8 @@ def calculate_gwa(e):
     {subjects[3]}: {grades[3]}<br>
     {subjects[4]}: {grades[4]}<br>
     {subjects[5]}: {grades[5]}<br><br>
-    <strong>Your general weighted average is: {gwa:.2f}</strong>
+    <strong>Your general weighted average is: {gwa:.2f}</strong><br>
+    <strong>Status: {status}</strong>
     """
-
     output_div = document.getElementById("output")
     output_div.innerHTML = summary
